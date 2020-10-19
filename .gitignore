@@ -231,6 +231,6 @@ dmypy.json
 # profiling data
 .prof
 
-bot_config/secrets.json
+secrets.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jetbrains+all
