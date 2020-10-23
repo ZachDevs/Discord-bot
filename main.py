@@ -42,6 +42,7 @@ bot.connection_url = secret_file['mongo']
 logging.basicConfig(level=logging.INFO)
 
 bot.blacklisted_users = []
+bot.muted_users = {}
 bot.cwd = cwd
 bot.version = '0.0.1'
 
@@ -54,9 +55,17 @@ async def on_ready():
     bot.mongo = motor.motor_asyncio.AsyncIOMotorClient(str(bot.connection_url))
     bot.db = bot.mongo["prefixes"]
     bot.config = Document(bot.db, "config")
-    print("Initialized Database\n-----")
+    bot.mutes = Document(bot.db, "mutes")
+
     for document in await bot.config.get_all():
         print(document)
+
+    currentMutes = await bot.mutes.get_all()
+    for mute in currentMutes:
+        bot.muted_users[mute["_id"]] = mute
+
+    print(bot.muted_users)
+    print("Initialized Database\n-----")
 
 
 @bot.event

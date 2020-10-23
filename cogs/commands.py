@@ -26,5 +26,9 @@ class Commands(commands.Cog):
         utils.json_loader.write_json(data, 'logchannel')
         await ctx.send(f"Log channel set to {logchan}")
 
+    @commands.command(name='epic')
+    async def epicsimp(self,ctx):
+        await ctx.send("Epic A Big SIMPPIE BOI")
+
 def setup(bot):
     bot.add_cog(Commands(bot))
