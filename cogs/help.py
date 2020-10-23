@@ -32,10 +32,14 @@ class Help(commands.Cog):
         if cog > totalPages or cog < 1:
             await ctx.send(f"Invalid page number: `{cog}`. Please pick from {totalPages} pages. \nAlternatively, run the `help` command.")
             return
+
+        helpEmbed.set_footer(
+            text=f"<> - Required & [] - Optional | Page {cog} of {totalPages}"
+        )
     
         neededCogs = []
         for i in range(4):
-            x = i + (int(cog) -1) * 4
+            x = i + (int(cog) - 1) * 4
             try:
                 neededCogs.append(cogs[x])
             except IndexError:
@@ -54,7 +58,7 @@ class Help(commands.Cog):
 
             helpEmbed.add_field(name=cog, value=commandList, inline=False)
 
-            await ctx.send(embed=helpEmbed)
+        await ctx.send(embed=helpEmbed)
 
 
 def setup(bot):
