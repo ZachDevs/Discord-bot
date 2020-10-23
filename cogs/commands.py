@@ -18,10 +18,10 @@ class Commands(commands.Cog):
         name='hi', 
         aliases=['hello'],
         description='Says Hello')
-    async def _hi(self, ctx,):
+    async def _hi(self, ctx, logchan):
         await ctx.send(f"👉👈 Hi {ctx.author.mention}!")
         data = utils.json_loader.read_json('logchannel')
-        channel = data[(ctx.message.guild.id)]
+        channel = data[logchan]
         await channel.send(f"This is A Tests")
         
 
