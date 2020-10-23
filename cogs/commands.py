@@ -22,7 +22,7 @@ class Commands(commands.Cog):
         await ctx.send(f"👉👈 Hi {ctx.author.mention}!")
         data = utils.json_loader.read_json('logchannel')
         channel = data[(ctx.message.guild.id)]
-        await channel.send(f"This is A Test")
+        await channel.send(f"This is A Tests")
         
 
     @commands.command(
