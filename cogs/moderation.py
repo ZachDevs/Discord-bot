@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands, tasks
 from dateutil.relativedelta import relativedelta
 
-time_regex = re.compile("(?:(/d{1,5})(h|s|m|d))+?")
+time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
 time_dict = {"h": 3600, "s": 1, "m": 60, "d": 86400}
 
 

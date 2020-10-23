@@ -11,7 +11,9 @@ class Channels(commands.Cog):
     async def on_ready(self):
         print(f"{self.__class__.__name__} Cog has been loaded\n-----")
 
-    @commands.command(aliases=['cs'])
+    @commands.command(
+        name='channelstats', aliases=['cs'], description='Displays the current channel stats'
+    )
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def channelstats(self, ctx):
         channel = ctx.channel
