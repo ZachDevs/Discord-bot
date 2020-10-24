@@ -5,8 +5,6 @@ import json
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 
-secret_file = json.load(open('D:\\codelel\\rainbow-bot/bot_config/secrets.json'))
-riotkey = secret_file['riotapi']
 
 
 class Games(commands.Cog):

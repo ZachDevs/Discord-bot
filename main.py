@@ -6,10 +6,15 @@ from pathlib import Path  # For paths
 import logging
 import os
 import motor.motor_asyncio
-
+from dotenv import load_dotenv
 import utils.json_loader
 from utils.mongo import Document
 import utils.mongo
+
+load_dotenv()
+
+DISCORD_TOKEN = os.getenv('token')
+MONGO_CONNECTION_STRING = os.getenv('mongo')
 
 # Get Current Working Directory
 cwd = Path(__file__).parents[0]
@@ -35,14 +40,14 @@ async def get_prefix(bot, message):
 # Defining a few things
 
 DEFAULTPREFIX = '~'
-secret_file = utils.json_loader.read_json('secrets')
+#secret_file = utils.json_loader.read_json('secrets')
 bot = commands.Bot(command_prefix=get_prefix,
  case_insensitive=True,
  owner_id=533747233225703444,
  help_command=None
   )
-bot.config_token = secret_file['token']
-bot.connection_url = secret_file['mongo']
+bot.config_token = DISCORD_TOKEN
+bot.connection_url = MONGO_CONNECTION_STRING
 logging.basicConfig(level=logging.INFO)
 
 bot.DEFAULTPREFIX = DEFAULTPREFIX
@@ -83,6 +88,7 @@ async def on_ready():
     bot.db = bot.mongo["prefixes"]
     bot.config = Document(bot.db, "config")
     bot.mutes = Document(bot.db, "mutes")
+    bot.logchannel = Document(bot.db, "logs")
 
     for document in await bot.config.get_all():
         print(document)

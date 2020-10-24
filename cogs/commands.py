@@ -1,9 +1,12 @@
 import discord
 from discord.ext import commands
 import platform
+import sys
+import json
+from pathlib import Path
 
-import utils.json_loader
-
+cwd = Path(__file__).parents[0]
+cwd = str(cwd)
 
 class Commands(commands.Cog):
 
@@ -18,11 +21,8 @@ class Commands(commands.Cog):
         name='hi', 
         aliases=['hello'],
         description='Says Hello')
-    async def _hi(self, ctx, logchan):
+    async def _hi(self, ctx):
         await ctx.send(f"👉👈 Hi {ctx.author.mention}!")
-        data = utils.json_loader.read_json('logchannel')
-        channel = data[logchan]
-        await channel.send(f"This is A Tests")
         
 
     @commands.command(
@@ -32,10 +32,12 @@ class Commands(commands.Cog):
     )
     @commands.has_guild_permissions(administrator=True)
     async def setlogchannel(self, ctx, logchan=''):
-        data = utils.json_loader.read_json('logchannel')
-        data[(ctx.message.guild.id)] = logchan
-        utils.json_loader.write_json(data, 'logchannel')
-        await ctx.send(f"Log channel set to {logchan}")
+        data = {
+            'guildId': ctx.guild.id,
+            'channelid':  ctx.channel
+        }
+        await self.bot.logchannel.upsert(data)
+        await ctx.send("Test Complete")
 
 def setup(bot):
     bot.add_cog(Commands(bot))

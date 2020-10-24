@@ -231,7 +231,7 @@ dmypy.json
 # profiling data
 .prof
 
-secrets.json
 jdk-13.0.2
+.env
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jetbrains+all
