@@ -23,6 +23,9 @@ class Commands(commands.Cog):
         description='Says Hello')
     async def _hi(self, ctx):
         await ctx.send(f"👉👈 Hi {ctx.author.mention}!")
+        guild = self.bot.get_guild(['_id')
+        channel = guild.get_channel(['channelid'])
+        ctx.channel.send("test Complete")
         
 
     @commands.command(
@@ -33,8 +36,8 @@ class Commands(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def setlogchannel(self, ctx, logchan=''):
         data = {
-            'guildId': ctx.guild.id,
-            'channelid':  ctx.channel
+            '_id': ctx.guild.id,
+            'channelid':  ctx.channel.id
         }
         await self.bot.logchannel.upsert(data)
         await ctx.send("Test Complete")
